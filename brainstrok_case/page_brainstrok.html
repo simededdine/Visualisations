@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function unchek(id) {
+	if (id=='day') {
+		document.getElementById('night').checked = false;
+	}
+	if (id == 'night'){
+		document.getElementById('day').checked = false;
+	}
+}
+
+function go(txt) {
+	if (document.getElementById('day').checked) {
+		daynight = document.getElementById('day').value;
+	}else if (document.getElementById('night').checked){
+		daynight = document.getElementById('night').value;
+	} else return false;
+    document.getElementById('container').innerHTML='<object data="index.html"   type="text/html"><embed style="width: 1500px;height:700px;"  src="./SET2/'+txt+'/'+daynight+'/index.html" type="text/html" "/></object>';
+    return false;
+}
+</script>
+</head>
+<body>
+<h1>Case : Brain Stroke</h1>
+<h2>Data Visualisation</h2>
+<form id="mainForm" >
+<input type="radio" id="day" value="day" onclick="unchek('day')">day<br>
+<input type="radio" id="night" value="night" onclick="unchek('night')">night<br>
+</form>
+<script>
+let i = 1;
+let body = document.getElementsByTagName("body")[0];
+
+for (i; i <= 25; i++) {
+  let button = document.createElement("button");
+  if(i<10)
+  button.innerHTML = 'SET2_P0'+i;
+  else
+  button.innerHTML = 'SET2_P'+i;
+  body.appendChild(button);
+  button.addEventListener ("click", function() {
+    go(this.innerHTML);
+  });
+}</script>
+<br>
+<div id="container" style="border: solid" ></div>
+</body>
+</html>
