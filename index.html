@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Visualisations</title>
+</head>
+<body>
+<script>
+function unchek(id) {
+	if (id=='day') {
+		document.getElementById('night').checked = false;
+	}
+	if (id == 'night'){
+		document.getElementById('day').checked = false;
+	}
+}
+
+function go1(txt) {
+	if (document.getElementById('day').checked) {
+		daynight = document.getElementById('day').value;
+	}else if (document.getElementById('night').checked){
+		daynight = document.getElementById('night').value;
+	} else return false;
+    document.getElementById('my-frame').src='./brainstrok_case/SET2/'+txt+'/'+daynight+'/index.html';
+    return false;
+}
+
+function go2(txt) {
+	document.getElementById('my-frame').src='./infectious_case/SET2/'+txt+'/index.html';
+    return false;
+}
+
+function getlist(idbutton) {
+		
+	if(idbutton == 1){
+	
+		let i = 1;
+		let body = document.getElementById('mylist');	
+		body.innerHTML = '<input type="radio" id="day" value="day" onclick="unchek(\'day\')">day<br><input type="radio" id="night" value="night" onclick="unchek(\'night\')">night<br>'
+	for (i; i <= 25; i++) {
+			let button = document.createElement("button");
+			button.className="button2";
+			if(i<10)
+				button.innerHTML = 'SET2_P0'+i;
+			else
+				button.innerHTML = 'SET2_P'+i;
+			body.appendChild(button);
+			button.addEventListener ("click", function() {
+				go1(this.innerHTML);	
+				});
+		}
+	}
+	if(idbutton == 2){
+		let i = 1;
+		let body = document.getElementById('mylist');
+		body.innerHTML="";
+		for (i; i <= 25; i++) {
+			let button = document.createElement("button");
+			button.className="button2";
+			if(i<10)
+				button.innerHTML = 'SET2_P0'+i;
+			else
+				button.innerHTML = 'SET2_P'+i;
+			body.appendChild(button);
+			button.addEventListener ("click", function() {
+				go2(this.innerHTML);
+				});
+		}
+	}
+}
+</script>
+<section>
+<nav>
+    <ul>
+	<button onclick="getlist(1)">Brain Stroke</button> 
+	<button onclick="getlist(2)"> Meningitis</button>
+	</ul>
+	<HR size=2 align='center' width='100%'>
+	<ul id="mylist">
+	</ul>
+  </nav>
+<iframe id="my-frame" src="" height="700" width="800"></iframe>
+</section>
+</body>
+</html>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: #666;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+}
+
+/* Create two columns/boxes that floats next to each other */
+nav {
+  float: left;
+  width: 30%;
+  height: 700px; /* only for demonstration, should be removed */
+  padding: 20px;
+  overflow-y: auto;
+}
+button {
+  float: left;
+  width: 99%;
+   /* only for demonstration, should be removed */
+  padding: 10px;
+  margin:2px
+}
+.button2 {
+  float: left;
+  width: 99%;
+   /* only for demonstration, should be removed */
+   padding:5px;
+  margin:1px
+}
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Clear floats after the columns */
+section:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+iframe {
+  float: left;
+  width: 70%;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
