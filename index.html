@@ -29,7 +29,23 @@ function go2(txt) {
     return false;
 }
 
+function getmore(buttonid,period,idbutton) {
+if(idbutton == 1){
+if (document.getElementById('day').checked) {
+		daynight = document.getElementById('day').value;
+	}else if (document.getElementById('night').checked){
+		daynight = document.getElementById('night').value;
+	} else return false;
+	document.getElementById('textarea').innerHTML="Trips of Users between "+period+" at "+daynight+", with mean of Time under 3H and speed under of 120Km/h, Red lines for 80Km/h-120Km/h, orange lines for 60Km/h-80Km/h, green lines for under 60Km/h";
+    }
+if(idbutton == 2){
+	document.getElementById('textarea').innerHTML="HeatMap of the regroupements of Users over Time between "+period+", the blue color for groups with small number of people and the red color where the number of people is big";
+    }
+	return false;
+}
+
 function getlist(idbutton) {
+SET2_tab=["1/7/2013-1/20/2013","1/21/2013-2/3/2013","2/4/2013-2/17/2013","2/18/2013-3/3/2013","3/4/2013-3/17/2013","3/18/2013-3/31/2013","4/1/2013-4/14/2013","4/15/2013-4/28/2013","4/29/2013-5/12/2013","5/13/2013-5/26/2013","5/27/2013-6/9/2013","6/10/2013-6/23/2013","6/24/2013-7/7/2013","7/8/2013-7/21/2013","7/22/2013-8/4/2013","8/5/2013-8/18/2013","8/19/2013-9/1/2013","9/2/2013-9/15/2013","9/16/2013-9/29/2013","9/30/2013-10/13/2013","10/14/2013-10/27/2013","10/28/2013-11/10/2013","11/11/2013-11/24/2013","11/25/2013-12/8/2013","12/9/2013-12/22/2013"];
 		
 	if(idbutton == 1){
 	
@@ -40,12 +56,16 @@ function getlist(idbutton) {
 			let button = document.createElement("button");
 			button.className="button2";
 			if(i<10)
-				button.innerHTML = 'SET2_P0'+i;
+				button.id = 'SET2_P0'+i;
 			else
-				button.innerHTML = 'SET2_P'+i;
+				button.id = 'SET2_P'+i;
+			button.innerHTML = SET2_tab[i-1];
 			body.appendChild(button);
 			button.addEventListener ("click", function() {
-				go1(this.innerHTML);	
+				go1(this.id);	
+				});
+			button.addEventListener ("mouseover", function() {
+				getmore(this.id,button.innerHTML,1);
 				});
 		}
 	}
@@ -57,18 +77,23 @@ function getlist(idbutton) {
 			let button = document.createElement("button");
 			button.className="button2";
 			if(i<10)
-				button.innerHTML = 'SET2_P0'+i;
+				button.id = 'SET2_P0'+i;
 			else
-				button.innerHTML = 'SET2_P'+i;
+				button.id = 'SET2_P'+i;
+			button.innerHTML = SET2_tab[i-1];
 			body.appendChild(button);
 			button.addEventListener ("click", function() {
-				go2(this.innerHTML);
+				go2(this.id);
+				});
+			button.addEventListener ("mouseover", function() {
+				getmore(this.id,button.innerHTML,2);
 				});
 		}
 	}
 }
 </script>
 <section>
+<div>
 <nav>
     <ul>
 	<button onclick="getlist(1)">Brain Stroke</button> 
@@ -78,6 +103,8 @@ function getlist(idbutton) {
 	<ul id="mylist">
 	</ul>
   </nav>
+  <div class="boxed" id="textarea" ></div>
+</div>
 <iframe id="my-frame" src="" height="700" width="800"></iframe>
 </section>
 </body>
@@ -102,10 +129,19 @@ header {
 
 /* Create two columns/boxes that floats next to each other */
 nav {
-  float: left;
-  width: 30%;
-  height: 700px; /* only for demonstration, should be removed */
+  float: top;
+  //width: 30%;
+  height: 500px; /* only for demonstration, should be removed */
   padding: 20px;
+  overflow-y: auto;  
+}
+.boxed {
+  float: top;
+  border: 1px solid ;
+  height:200px;
+  width: 100%;
+  margin-top:2px;
+  padding: 5px;
   overflow-y: auto;
 }
 button {
@@ -134,7 +170,16 @@ section:after {
   display: table;
   clear: both;
 }
-
+div {
+  width: 30%;
+  height: 700px; /* only for demonstration, should be removed */
+  float: left;
+}
+div:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 /* Style the footer */
 footer {
   background-color: #777;
